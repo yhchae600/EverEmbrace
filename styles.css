@@ -1,0 +1,1927 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+    background: #fafcff;
+    width: 100%;
+    max-width: 100vw;
+}
+
+/* CSS Variables */
+:root {
+    --primary-color: #2C5AA0;
+    --secondary-color: #D4AF37;
+    --accent-color: #1E3D72;
+    --luxury-gold: #B8860B;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-light: #7a7a7a;
+    --background-light: #f8faff;
+    --background-white: #ffffff;
+    --background-premium: #fafcff;
+    --border-color: #e8edf7;
+    --shadow-light: 0 2px 15px rgba(44, 90, 160, 0.08);
+    --shadow-medium: 0 8px 30px rgba(44, 90, 160, 0.12);
+    --shadow-heavy: 0 15px 50px rgba(44, 90, 160, 0.15);
+    --shadow-premium: 0 20px 60px rgba(212, 175, 55, 0.1);
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    --gradient-gold: linear-gradient(135deg, var(--secondary-color), var(--luxury-gold));
+    --gradient-premium: linear-gradient(135deg, #f8faff, #ffffff);
+}
+
+/* Typography */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 3.5rem;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+.section-subtitle br {
+    line-height: 2.2;
+}
+
+/* section-subtitle 버전 제어 */
+.section-subtitle .pc-version {
+    display: inline;
+}
+.section-subtitle .mobile-version {
+    display: none;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-light);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-light);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-img {
+    height: 60px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--gradient-gold);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background: var(--text-primary);
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, rgba(44, 90, 160, 0.4), rgba(30, 61, 114, 0.5)), url('hero-image.jpg');
+    background-size: cover;
+    background-position: center 70%;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.08), transparent 70%);
+    pointer-events: none;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text {
+    color: white;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+    font-weight: 400;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.7);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-buttons .btn-primary {
+    background: var(--gradient-gold);
+    border: none;
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+}
+
+.hero-buttons .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
+}
+
+.hero-buttons .btn-secondary {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.hero-buttons .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.35);
+    border-color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+}
+
+/* Remove old hero image styles */
+.hero-image,
+.hero-img {
+    display: none;
+}
+
+/* Responsive adjustments for hero background */
+@media (max-width: 1200px) {
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .hero {
+        background-attachment: scroll;
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile responsive - 단순하고 안전한 버전 */
+@media (max-width: 768px) {
+    /* 기본 설정 - 가장 중요! */
+    * {
+        box-sizing: border-box !important;
+    }
+    
+    html, body {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        font-size: 16px !important;
+    }
+    
+    .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 20px !important;
+        margin: 0 auto !important;
+    }
+
+    /* 네비게이션 */
+    .hamburger {
+        display: block !important;
+    }
+
+    .nav-menu {
+        position: fixed !important;
+        left: -100% !important;
+        top: 70px !important;
+        flex-direction: column !important;
+        background-color: rgba(44, 90, 160, 0.98) !important;
+        width: 100% !important;
+        text-align: center !important;
+        transition: 0.3s !important;
+        padding: 2rem 0 !important;
+    }
+
+    .nav-menu.active {
+        left: 0 !important;
+    }
+
+    .nav-item {
+        margin: 1rem 0 !important;
+    }
+
+    .nav-link {
+        color: white !important;
+        font-size: 1.1rem !important;
+    }
+
+    /* Hero - 완전히 새로 작성 */
+    .hero {
+        min-height: 100vh !important;
+        padding: 80px 0 50px !important;
+        background-attachment: scroll !important;
+        width: 100% !important;
+    }
+
+    .hero-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 20px !important;
+        margin: 0 auto !important;
+    }
+
+    .hero-title {
+        font-size: 2.8rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 1.5rem !important;
+        width: 100% !important;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 2.5rem !important;
+        width: 100% !important;
+    }
+
+    .hero-buttons {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    .btn {
+        padding: 16px 40px !important;
+        font-size: 1rem !important;
+        width: 100% !important;
+        max-width: 320px !important;
+        display: block !important;
+    }
+
+    /* Sacred Moment */
+    .sacred-moment {
+        padding: 60px 0;
+        width: 100% !important;
+    }
+
+    .sacred-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 20px !important;
+    }
+
+    .sacred-title {
+        font-size: 2rem;
+        line-height: 1.3;
+        margin-bottom: 1.5rem;
+        padding: 0 10px;
+    }
+
+    .sacred-title br {
+        display: block;
+        line-height: 1.5;
+    }
+
+    .sacred-quote {
+        font-size: 1.04rem;
+        line-height: 1.5 !important;
+        margin-bottom: 1.5rem;
+        padding: 0 10px;
+    }
+    .sacred-quote .mobile-version {
+        display: block !important;
+        text-align: center !important;
+    }
+    .sacred-quote .pc-version {
+        display: none !important;
+    }
+
+    .sacred-description {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        text-align: justify;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* 섹션 제목들 */
+    .section-title {
+        font-size: 2.2rem !important;
+        margin-bottom: 1rem !important;
+        width: 100% !important;
+    }
+
+    .section-subtitle {
+        font-size: 1.1rem !important;
+        margin-bottom: 2.5rem !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    /* About - Grid를 완전히 제거하고 단순한 레이아웃으로 */
+    .about {
+        padding: 80px 0 !important;
+        width: 100% !important;
+    }
+
+    .about-content {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .about-text {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 3rem !important;
+    }
+
+    .about-item {
+        padding: 2rem !important;
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 2rem !important;
+        text-align: left !important;
+    }
+
+    .about-icon {
+        margin-bottom: 1rem !important;
+        display: block !important;
+    }
+
+    .about-info h3 {
+        font-size: 1.3rem !important;
+        width: 100% !important;
+    }
+
+    .about-info p {
+        font-size: 1rem !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    .about-image {
+        width: 100% !important;
+        margin-top: 2rem !important;
+    }
+
+    .about-img {
+        width: 100% !important;
+        height: 400px !important;
+        min-height: 400px !important;
+    }
+
+    /* Products - Grid 완전히 제거 */
+    .products {
+        padding: 80px 0 !important;
+        width: 100% !important;
+    }
+
+    .products-grid {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .product-card {
+        width: 100% !important;
+        margin-bottom: 2.5rem !important;
+        display: block !important;
+    }
+
+    .product-title {
+        font-size: 1.4rem !important;
+        width: 100% !important;
+        min-height: auto !important;
+    }
+
+    .product-description {
+        font-size: 1rem !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    .product-info {
+        padding: 2rem !important;
+        width: 100% !important;
+    }
+
+    .product-image {
+        width: 100% !important;
+    }
+
+    .product-img {
+        width: 100% !important;
+    }
+
+    /* Services - Grid 완전히 제거 */
+    .services {
+        padding: 80px 0 !important;
+        width: 100% !important;
+    }
+
+    .services-grid {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .service-card {
+        width: 100% !important;
+        padding: 2rem !important;
+        margin-bottom: 2rem !important;
+        display: block !important;
+        text-align: left !important;
+    }
+
+    .service-card h3 {
+        font-size: 1.3rem !important;
+        width: 100% !important;
+    }
+
+    .service-card p {
+        font-size: 1rem !important;
+        width: 100% !important;
+    }
+
+    /* Testimonial */
+    .testimonial {
+        padding: 60px 0 !important;
+        width: 100% !important;
+    }
+
+    .testimonial-content {
+        width: 100% !important;
+        padding: 0 20px !important;
+    }
+
+    .testimonial-quote {
+        font-size: 1.3rem !important;
+        line-height: 1.5 !important;
+        width: 100% !important;
+    }
+
+    .testimonial-author {
+        font-size: 1rem !important;
+        width: 100% !important;
+    }
+
+    /* Contact - Grid 완전히 제거 */
+    .contact {
+        padding: 80px 0 !important;
+        width: 100% !important;
+    }
+
+    .contact-content {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .contact-info {
+        width: 100% !important;
+        margin-bottom: 3rem !important;
+    }
+
+    .contact-item {
+        padding: 2rem !important;
+        width: 100% !important;
+        margin-bottom: 2rem !important;
+        display: block !important;
+        text-align: left !important;
+    }
+
+    .contact-icon {
+        margin-bottom: 1rem !important;
+        display: block !important;
+    }
+
+    .contact-details h4 {
+        font-size: 1.2rem !important;
+        width: 100% !important;
+    }
+
+    .contact-details p {
+        font-size: 1rem !important;
+        width: 100% !important;
+    }
+
+    .contact-form {
+        padding: 2rem !important;
+        width: 100% !important;
+    }
+
+    .form-title {
+        font-size: 1.5rem !important;
+        width: 100% !important;
+    }
+
+    .form-subtitle {
+        font-size: 1rem !important;
+        width: 100% !important;
+    }
+
+    .form input,
+    .form select,
+    .form textarea {
+        padding: 16px 20px !important;
+        font-size: 1rem !important;
+        width: 100% !important;
+    }
+
+    /* Footer - Grid 완전히 제거 */
+    .footer {
+        padding: 60px 0 30px !important;
+        width: 100% !important;
+    }
+
+    .footer-content {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .footer-section {
+        width: 100% !important;
+        margin-bottom: 3rem !important;
+        display: block !important;
+    }
+
+    .footer-section h4 {
+        font-size: 1.2rem !important;
+        width: 100% !important;
+    }
+
+    .footer-text,
+    .footer-links a,
+    .footer-contact p {
+        font-size: 1rem !important;
+        width: 100% !important;
+    }
+
+    /* 모바일에서 일부 줄바꿈 숨기기 - sacred-title은 제외 */
+    .hero-subtitle br,
+    .section-subtitle br {
+        display: none !important;
+    }
+
+    /* sacred-title의 br은 유지 */
+    .sacred-title br {
+        display: block !important;
+        line-height: 1.5 !important;
+    }
+
+    /* 모바일 텍스트를 한 줄로 자연스럽게 - sacred-title은 제외 */
+    .hero-subtitle,
+    .section-subtitle {
+        white-space: normal !important;
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+    }
+
+    /* sacred-title은 줄바꿈 허용 */
+    .sacred-title {
+        white-space: normal !important;
+        word-break: keep-all !important;
+        overflow-wrap: break-word !important;
+        text-align: center !important;
+    }
+
+    .section-subtitle .pc-version {
+        display: none;
+    }
+    .section-subtitle .mobile-version {
+        display: block !important;
+        text-align: center !important;
+    }
+
+    .clickable-image {
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+        user-select: none !important;
+        background: transparent !important;
+    }
+    .clickable-image:active {
+        background: transparent !important;
+        outline: none !important;
+    }
+
+    .modal {
+        background-color: rgba(0, 0, 0, 0.8) !important;
+        backdrop-filter: blur(4px) !important;
+    }
+
+    .sacred-quote .pc-version {
+        display: none !important;
+    }
+    .sacred-quote .mobile-version {
+        display: block !important;
+        text-align: center !important;
+        white-space: pre-line !important;
+        font-style: italic;
+        color: #2d5ca4;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px !important;
+    }
+
+    .hero-title {
+        font-size: 2.2rem !important;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem !important;
+    }
+
+    .section-title {
+        font-size: 1.8rem !important;
+    }
+
+    .sacred-title {
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin-bottom: 1.2rem;
+        word-spacing: normal;
+    }
+
+    .sacred-title br {
+        display: block;
+        line-height: 1.4;
+        margin-bottom: 0.3rem;
+    }
+
+    .sacred-quote {
+        font-size: 0.945rem; /* 90% of 1.05rem */
+        line-height: 1.5;
+        margin-bottom: 1.3rem;
+    }
+
+    .sacred-quote .pc-version {
+        display: none;
+    }
+
+    .sacred-quote .mobile-version {
+        display: inline;
+    }
+
+    .sacred-description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        text-align: justify;
+    }
+
+    .about-item,
+    .contact-item,
+    .service-card {
+        padding: 1.5rem !important;
+    }
+
+    .product-info {
+        padding: 1.5rem !important;
+    }
+
+    .contact-form {
+        padding: 1.5rem !important;
+    }
+
+    .form input,
+    .form select,
+    .form textarea {
+        padding: 14px 16px !important;
+    }
+}
+
+/* Sacred Moment Section */
+.sacred-moment {
+    padding: 80px 0;
+    background: var(--background-white);
+    position: relative;
+}
+
+.sacred-content {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.sacred-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.4;
+    word-spacing: normal;
+}
+
+.sacred-title br {
+    line-height: 1.8;
+}
+
+.sacred-quote {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    position: relative;
+    line-height: 1.6;
+}
+
+.sacred-quote br {
+    line-height: 2;
+}
+
+.sacred-quote::before,
+.sacred-quote::after {
+    content: '"';
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    font-family: 'Playfair Display', serif;
+}
+
+.sacred-description {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    text-align: justify;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.sacred-description .pc-version { display: inline; }
+.sacred-description .mobile-version { display: none; }
+
+@media (max-width: 768px) {
+  .sacred-description {
+    text-align: left !important;
+    padding: 0 10px !important;
+    line-height: 1.7 !important;
+  }
+  .sacred-description .pc-version { display: none; }
+  .sacred-description .mobile-version {
+    display: block !important;
+    text-align: center !important;
+  }
+}
+
+/* About Section */
+.about {
+    padding: 120px 0;
+    background: var(--background-light);
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: stretch;
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.about-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+    align-items: flex-start;
+}
+
+.about-item:hover {
+    transform: translateX(10px);
+    box-shadow: var(--shadow-medium);
+}
+
+.about-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-light);
+}
+
+.about-info {
+    flex: 1;
+}
+
+.about-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.about-info p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+    text-align: justify;
+}
+
+.about-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+    box-shadow: var(--shadow-premium);
+    display: flex;
+    align-items: stretch;
+}
+
+.about-img {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    object-fit: cover;
+    border-radius: 25px;
+    box-shadow: var(--shadow-premium);
+    transition: transform 0.3s ease;
+}
+
+.about-img:hover {
+    transform: scale(1.03);
+}
+
+/* Products Section */
+.products {
+    padding: 120px 0;
+    background: var(--background-white);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    align-items: stretch;
+}
+
+.product-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-light);
+    transition: all 0.4s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card.premium {
+    border: 1px solid var(--border-color);
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-premium);
+}
+
+.product-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    flex-shrink: 0;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.product-overlay {
+    display: none;
+}
+
+.premium-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--gradient-gold);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 2;
+    box-shadow: var(--shadow-light);
+}
+
+.product-info {
+    padding: 2.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    min-height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-description {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    flex-grow: 1;
+    text-align: justify;
+}
+
+.product-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: auto;
+}
+
+.feature.premium {
+    background: var(--background-light);
+    color: var(--text-primary);
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    border-left: 3px solid var(--secondary-color);
+    font-weight: 500;
+}
+
+/* Services Section */
+.services {
+    padding: 120px 0;
+    background: var(--background-light);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    align-items: stretch;
+}
+
+.service-card {
+    text-align: left;
+    padding: 2.5rem;
+    border-radius: 20px;
+    background: white;
+    box-shadow: var(--shadow-light);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-gold);
+}
+
+.service-card.premium:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-premium);
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: white;
+    font-size: 1.8rem;
+    box-shadow: var(--shadow-light);
+    flex-shrink: 0;
+}
+
+.service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+    text-align: justify;
+    flex-grow: 1;
+}
+
+/* Testimonial Section */
+.testimonial {
+    padding: 80px 0;
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+}
+
+.testimonial-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.testimonial-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.testimonial-quote::before,
+.testimonial-quote::after {
+    content: '"';
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    position: absolute;
+}
+
+.testimonial-quote::before {
+    top: -10px;
+    left: -25px;
+}
+
+.testimonial-quote::after {
+    bottom: -15px;
+    right: -25px;
+}
+
+.testimonial-author {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: normal;
+}
+
+/* Contact Section */
+.contact {
+    padding: 120px 0;
+    background: var(--background-light);
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+    align-items: flex-start;
+}
+
+.contact-item:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-light);
+}
+
+.contact-details {
+    flex: 1;
+}
+
+.contact-details h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.contact-details p {
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Footer */
+.footer {
+    background: var(--text-primary);
+    color: white;
+    padding: 80px 0 30px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 3rem;
+    align-items: start;
+    justify-items: center;
+    text-align: center;
+}
+
+.footer-section {
+    width: 100%;
+    max-width: 300px;
+}
+
+.footer-logo-img {
+    height: 50px;
+    margin-bottom: 1.5rem;
+    filter: brightness(0) invert(1);
+}
+
+.footer-text {
+    color: #ccc;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.footer-section h4 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.footer-links a:hover {
+    color: var(--secondary-color);
+}
+
+.footer-contact p {
+    margin-bottom: 0.8rem;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+.footer-contact i {
+    margin-right: 0.8rem;
+    color: var(--secondary-color);
+}
+
+.footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid #444;
+    text-align: center;
+    color: #999;
+}
+
+.footer-tagline {
+    margin-top: 1rem;
+    font-style: italic;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+/* Animation Classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
+
+/* Premium hover effects */
+.premium:hover {
+    transform: scale(1.02);
+}
+
+/* Luxury accents */
+.luxury-accent {
+    position: relative;
+}
+
+.luxury-accent::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 2px;
+    background: var(--gradient-gold);
+    border-radius: 1px;
+}
+
+/* Contact Form */
+.contact-form {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-light);
+    position: relative;
+}
+
+.form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.form-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form input,
+.form select,
+.form textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: var(--background-light);
+    line-height: 1.5;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+}
+
+.form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Responsive Design for other sections */
+@media (max-width: 1024px) {
+    .about-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+    }
+    
+    .about-img {
+        min-height: 550px;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .sacred-title {
+        font-size: 1.6rem;
+        line-height: 1.4;
+    }
+    
+    .testimonial-quote {
+        font-size: 1rem;
+    }
+
+    .testimonial-quote::before,
+    .testimonial-quote::after {
+        display: none;
+    }
+    
+    .section-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .product-info,
+    .service-card,
+    .about-item,
+    .contact-item {
+        padding: 1.5rem;
+    }
+    
+    .product-title {
+        font-size: 1.2rem;
+        min-height: 1.6em;
+    }
+}
+
+/* Remove product overlay styles */
+.product-overlay {
+    display: none;
+}
+
+/* Clickable images - 플래시 효과 제거 */
+.clickable-image {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.clickable-image:hover {
+    transform: scale(1.02);
+}
+
+/* Modal Styles - 청초록 배경 문제 해결 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95) !important;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 800px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: transparent !important;
+}
+
+#modalImage {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    background: transparent !important;
+}
+
+#modalImage.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#modalCaption {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    max-width: 600px;
+}
+
+.close {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/* Mobile modal adjustments */
+@media (max-width: 768px) {
+    /* 모달 모바일 수정 */
+    .modal {
+        display: none !important;
+        position: fixed !important;
+        z-index: 9999 !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background-color: rgba(0, 0, 0, 0.8) !important;
+    }
+    
+    .modal.show {
+        display: flex !important;
+        opacity: 1 !important;
+    }
+    
+    .modal-content {
+        width: 95% !important;
+        height: 100% !important;
+        padding: 20px 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 0 auto !important;
+    }
+    
+    #modalImage {
+        max-height: 70vh !important;
+        max-width: 90% !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+        border-radius: 10px !important;
+    }
+    
+    #modalImage.show {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+    }
+    
+    .close {
+        top: 20px !important;
+        right: 20px !important;
+        font-size: 30px !important;
+        width: 40px !important;
+        height: 40px !important;
+        background: rgba(255, 255, 255, 0.8) !important;
+        color: #000 !important;
+    }
+    
+    #modalCaption {
+        font-size: 1rem !important;
+        margin-top: 15px !important;
+        padding: 0 20px !important;
+        text-align: center !important;
+        color: white !important;
+    }
+
+    /* 모바일 텍스트 정렬 - 가독성 개선 */
+    .section-subtitle {
+        text-align: left !important;
+        line-height: 1.8 !important;
+        margin: 0 auto 2.5rem !important;
+        max-width: 100% !important;
+        word-break: keep-all !important;
+        hyphens: none !important;
+    }
+
+    .sacred-description {
+        text-align: left !important;
+        line-height: 1.8 !important;
+        max-width: 100% !important;
+        word-break: keep-all !important;
+        hyphens: none !important;
+    }
+
+    .about-info p {
+        text-align: left !important;
+        line-height: 1.7 !important;
+        width: 100% !important;
+        word-break: keep-all !important;
+        hyphens: none !important;
+    }
+
+    .product-description {
+        text-align: left !important;
+        line-height: 1.7 !important;
+        width: 100% !important;
+        word-break: keep-all !important;
+        hyphens: none !important;
+    }
+
+    .service-card p {
+        text-align: left !important;
+        line-height: 1.7 !important;
+        width: 100% !important;
+        word-break: keep-all !important;
+        hyphens: none !important;
+    }
+
+    .contact-details p {
+        text-align: center !important;
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+    }
+
+    .footer-text {
+        line-height: 1.8 !important;
+        text-align: left !important;
+        word-break: keep-all !important;
+        hyphens: none !important;
+    }
+
+    .form-subtitle {
+        text-align: left !important;
+        line-height: 1.7 !important;
+        word-break: keep-all !important;
+        hyphens: none !important;
+    }
+
+    /* 모든 제목들 중앙 정렬 */
+    .section-title,
+    .sacred-title,
+    .sacred-quote,
+    .product-title,
+    .about-info h3,
+    .service-card h3,
+    .contact-details h4,
+    .form-title,
+    .hero-title,
+    .hero-subtitle,
+    .testimonial-quote,
+    .testimonial-author {
+        text-align: center !important;
+        word-break: keep-all !important;
+    }
+
+    /* 모바일 카드들 정렬 개선 */
+    .about-item {
+        text-align: center !important;
+        padding: 2rem !important;
+    }
+
+    .about-item .about-info p {
+        text-align: left !important;
+        margin-top: 1rem !important;
+    }
+
+    .service-card {
+        text-align: center !important;
+        padding: 2rem !important;
+    }
+
+    .service-card p {
+        text-align: left !important;
+        margin-top: 1rem !important;
+    }
+
+    .contact-item {
+        text-align: center !important;
+        padding: 2rem !important;
+    }
+
+    .contact-item .contact-details p {
+        text-align: left !important;
+        margin-top: 0.5rem !important;
+    }
+
+    /* 본문 텍스트들 들여쓰기 제거 */
+    .section-subtitle,
+    .sacred-description,
+    .about-info p,
+    .product-description,
+    .service-card p,
+    .footer-text {
+        text-indent: 0 !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+}
+
+/* 이미지 안전 설정 */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.product-img,
+.about-img,
+.hero-img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+/* PC에서 줄바꿈 유지 (기본값) */
+.hero-subtitle br,
+.sacred-title br,
+.sacred-quote br,
+.section-subtitle br {
+    display: block;
+}
+
+/* Sacred Quote 버전 제어 */
+.sacred-quote .pc-version {
+    display: inline;
+}
+.sacred-quote .mobile-version {
+    display: none;
+}
+
+.section-subtitle .mobile-version {
+    text-align: center !important;
+    display: block !important;
+}
+
+.section-subtitle .pc-version, .sacred-quote .pc-version {
+    text-align: justify;
+} 

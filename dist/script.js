@@ -1,0 +1,813 @@
+// DOM Content Loaded Event
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile Navigation
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+    }
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Navbar background on scroll
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 8px 30px rgba(44, 90, 160, 0.12)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 15px rgba(44, 90, 160, 0.08)';
+            }
+        });
+    }
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Add fade-in class to elements and observe them
+    const elementsToAnimate = [
+        '.section-title',
+        '.section-subtitle',
+        '.about-item',
+        '.product-card',
+        '.service-card',
+        '.contact-item',
+        '.hero-title',
+        '.hero-subtitle',
+        '.sacred-title',
+        '.sacred-quote',
+        '.testimonial-quote'
+    ];
+
+    elementsToAnimate.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+            el.classList.add('fade-in');
+            observer.observe(el);
+        });
+    });
+
+    // Form handling
+    const contactForm = document.querySelector('.form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending with Care...';
+            submitBtn.disabled = true;
+
+            // Simulate form submission (replace with actual form handling)
+            setTimeout(() => {
+                // Show success message
+                showNotification('Thank you for sharing your story with us. Our compassionate team will reach out to you within 24 hours to provide gentle guidance.', 'success');
+                
+                // Reset form
+                this.reset();
+                
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+    }
+
+    // Product card interactions
+    document.querySelectorAll('.product-card').forEach(card => {
+        const overlay = card.querySelector('.product-overlay');
+        const button = overlay ? overlay.querySelector('.btn') : null;
+        
+        if (button) {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const productTitle = card.querySelector('.product-title').textContent;
+                showProductModal(productTitle);
+            });
+        }
+    });
+
+    // Service card hover effects
+    document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-12px) scale(1.02)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Add loading animations
+    window.addEventListener('load', () => {
+        document.body.classList.add('loaded');
+    });
+
+    // Image Modal Functionality - 청초록 배경 문제 완전 해결
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+    const closeBtn = document.querySelector('.close');
+
+    // 모달 초기 설정 (청초록 배경 방지)
+    if (modal) {
+        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+        modal.style.background = 'rgba(0, 0, 0, 0.95)';
+    }
+    
+    if (modalImg) {
+        modalImg.style.backgroundColor = 'transparent';
+        modalImg.style.background = 'transparent';
+    }
+
+    // Add click event to all clickable images
+    document.querySelectorAll('.clickable-image').forEach(img => {
+        img.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // 모달 즉시 설정 (배경색 강제)
+            modal.style.display = 'block';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            modal.style.background = 'rgba(0, 0, 0, 0.95)';
+            
+            // 모바일 전용 강제 설정
+            if (window.innerWidth <= 768) {
+                modal.style.display = 'flex';
+                modal.style.position = 'fixed';
+                modal.style.zIndex = '9999';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100vw';
+                modal.style.height = '100vh';
+                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+                modal.style.background = 'rgba(0, 0, 0, 0.95)';
+            }
+            
+            // 이미지 설정 (투명 배경 강제)
+            modalImg.style.opacity = '0';
+            modalImg.style.transform = 'scale(0.8)';
+            modalImg.style.backgroundColor = 'transparent';
+            modalImg.style.background = 'transparent';
+            modalImg.src = this.src;
+            modalCaption.textContent = this.alt;
+            
+            // 모달 클래스 추가
+            modal.classList.add('show');
+            
+            // 이미지 로드 완료 후 즉시 표시
+            const showImage = () => {
+                modalImg.classList.add('show');
+                modalImg.style.opacity = '1';
+                modalImg.style.transform = 'scale(1)';
+                modalImg.style.backgroundColor = 'transparent';
+                modalImg.style.background = 'transparent';
+            };
+            
+            modalImg.onload = showImage;
+            
+            // 즉시 로드된 경우에도 실행
+            if (modalImg.complete && modalImg.naturalHeight !== 0) {
+                showImage();
+            }
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Close modal function - 배경 초기화 포함
+    function closeModal() {
+        modal.classList.remove('show');
+        modalImg.classList.remove('show');
+        modalImg.style.opacity = '0';
+        modalImg.style.transform = 'scale(0.8)';
+        
+        setTimeout(() => {
+            modal.style.display = 'none';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    // Close modal when clicking the X button
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeModal();
+        });
+    }
+
+    // Close modal when clicking outside the image
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal || e.target === modal.querySelector('.modal-content')) {
+            closeModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+});
+
+// Enhanced notification system
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    document.querySelectorAll('.notification').forEach(n => n.remove());
+
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    
+    // Enhanced notification with icon
+    const icon = type === 'success' ? '✧' : type === 'error' ? '✕' : 'ℹ';
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-icon">${icon}</span>
+            <span class="notification-message">${message}</span>
+            <button class="notification-close">&times;</button>
+        </div>
+    `;
+
+    // Enhanced styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #4CAF50, #45a049)' : 
+                    type === 'error' ? 'linear-gradient(135deg, #f44336, #da190b)' : 
+                    'linear-gradient(135deg, #2C5AA0, #1E3D72)'};
+        color: white;
+        padding: 20px 25px;
+        border-radius: 12px;
+        box-shadow: 0 15px 50px rgba(44, 90, 160, 0.15);
+        z-index: 9999;
+        transform: translateX(120%);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        max-width: 450px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: 'Inter', sans-serif;
+    `;
+
+    document.body.appendChild(notification);
+
+    // Enhanced notification content styling
+    const content = notification.querySelector('.notification-content');
+    content.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    `;
+
+    const iconElement = notification.querySelector('.notification-icon');
+    iconElement.style.cssText = `
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    `;
+
+    const messageElement = notification.querySelector('.notification-message');
+    messageElement.style.cssText = `
+        flex: 1;
+        line-height: 1.5;
+        font-size: 0.95rem;
+    `;
+
+    const closeElement = notification.querySelector('.notification-close');
+    closeElement.style.cssText = `
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+        padding: 0;
+        margin: 0;
+        flex-shrink: 0;
+    `;
+
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+
+    // Close button functionality
+    const closeBtn = notification.querySelector('.notification-close');
+    closeBtn.addEventListener('click', () => {
+        notification.style.transform = 'translateX(120%)';
+        setTimeout(() => notification.remove(), 400);
+    });
+
+    closeBtn.addEventListener('mouseenter', () => {
+        closeBtn.style.opacity = '1';
+    });
+
+    closeBtn.addEventListener('mouseleave', () => {
+        closeBtn.style.opacity = '0.7';
+    });
+
+    // Auto remove after 6 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.style.transform = 'translateX(120%)';
+            setTimeout(() => notification.remove(), 400);
+        }
+    }, 6000);
+}
+
+// Enhanced product modal
+function showProductModal(productTitle) {
+    // Remove existing modal
+    document.querySelectorAll('.modal').forEach(m => m.remove());
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    
+    // Enhanced modal content with more thoughtful messaging
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>${productTitle}</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-intro">
+                    <p class="modal-quote">"More than ashes – this memorial holds love, memory, and an eternal bond."</p>
+                    <p class="modal-description">Thank you for your interest in our ${productTitle}. We understand this is a deeply personal decision, and our compassionate team is here to provide gentle guidance throughout your journey. Each piece is thoughtfully handcrafted and presented in premium velvet packaging, reflecting the reverence your loved one deserves.</p>
+                </div>
+                <div class="modal-features">
+                    <h4>What Makes This Special:</h4>
+                    <ul class="feature-list">
+                        <li>✧ Thoughtfully handcrafted with sacred intention</li>
+                        <li>✧ Sturdy and secure construction for lasting protection</li>
+                        <li>✧ Presented in luxury velvet packaging</li>
+                        <li>✧ Includes gentle transfer assistance guide</li>
+                        <li>✧ Lifetime craftsmanship guarantee</li>
+                    </ul>
+                </div>
+                <div class="modal-form">
+                    <h3>Request Compassionate Guidance</h3>
+                    <p class="form-note">Share a little about your needs, and we'll reach out within 24 hours to provide personalized support.</p>
+                    <form class="quick-form">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="tel" placeholder="Your Phone (optional)">
+                        <textarea placeholder="Tell us about your loved one or any special requests..." rows="4"></textarea>
+                        <button type="submit" class="btn btn-primary btn-full">Request Guidance</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-overlay"></div>
+    `;
+
+    // Enhanced modal styles
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        padding: 20px;
+    `;
+
+    const modalContent = modal.querySelector('.modal-content');
+    modalContent.style.cssText = `
+        background: white;
+        border-radius: 20px;
+        padding: 0;
+        max-width: 600px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        transform: scale(0.8);
+        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        box-shadow: 0 20px 60px rgba(44, 90, 160, 0.2);
+        border: 1px solid #e8edf7;
+    `;
+
+    const modalOverlay = modal.querySelector('.modal-overlay');
+    modalOverlay.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(26, 26, 26, 0.8);
+        backdrop-filter: blur(8px);
+    `;
+
+    document.body.appendChild(modal);
+
+    // Style modal components
+    const modalHeader = modal.querySelector('.modal-header');
+    modalHeader.style.cssText = `
+        padding: 2.5rem 3rem 1.5rem;
+        border-bottom: 1px solid #e8edf7;
+        background: linear-gradient(135deg, #f8faff, #ffffff);
+        border-radius: 20px 20px 0 0;
+    `;
+
+    const modalBody = modal.querySelector('.modal-body');
+    modalBody.style.cssText = `
+        padding: 2rem 3rem 3rem;
+    `;
+
+    const modalQuote = modal.querySelector('.modal-quote');
+    if (modalQuote) {
+        modalQuote.style.cssText = `
+            font-style: italic;
+            color: #2C5AA0;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        `;
+    }
+
+    const modalDescription = modal.querySelector('.modal-description');
+    if (modalDescription) {
+        modalDescription.style.cssText = `
+            line-height: 1.7;
+            color: #4a4a4a;
+            margin-bottom: 2rem;
+        `;
+    }
+
+    const modalFeatures = modal.querySelector('.modal-features');
+    if (modalFeatures) {
+        modalFeatures.style.cssText = `
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: #f8faff;
+            border-radius: 12px;
+            border-left: 4px solid #D4AF37;
+        `;
+
+        const featureList = modal.querySelector('.feature-list');
+        if (featureList) {
+            featureList.style.cssText = `
+                list-style: none;
+                padding: 0;
+                margin: 1rem 0 0 0;
+            `;
+
+            featureList.querySelectorAll('li').forEach(li => {
+                li.style.cssText = `
+                    padding: 0.5rem 0;
+                    color: #1a1a1a;
+                    font-weight: 500;
+                `;
+            });
+        }
+    }
+
+    // Animate in
+    setTimeout(() => {
+        modal.style.opacity = '1';
+        modalContent.style.transform = 'scale(1)';
+    }, 100);
+
+    // Close functionality
+    const closeModal = () => {
+        modal.style.opacity = '0';
+        modalContent.style.transform = 'scale(0.8)';
+        setTimeout(() => modal.remove(), 400);
+        document.body.style.overflow = '';
+    };
+
+    modal.querySelector('.modal-close').addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+
+    // Enhanced form handling
+    modal.querySelector('.quick-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        showNotification('Your request has been received with care. Our compassionate team will contact you within 24 hours to provide personalized guidance during this meaningful time.', 'success');
+        closeModal();
+    });
+
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+    
+    // ESC key to close
+    const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+            document.removeEventListener('keydown', handleEscape);
+        }
+    };
+    document.addEventListener('keydown', handleEscape);
+}
+
+// Enhanced parallax effect for hero section
+function initParallax() {
+    const heroImg = document.querySelector('.hero-img');
+    if (heroImg) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.3;
+            heroImg.style.transform = `perspective(1000px) rotateY(-8deg) translateY(${rate}px)`;
+        });
+    }
+}
+
+// Initialize parallax after page load
+window.addEventListener('load', initParallax);
+
+// Enhanced typing effect for hero title
+function typeEffect() {
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+        const originalHTML = 'Forever in Heart,<br>Held in Embrace';
+        heroTitle.innerHTML = '';
+        heroTitle.style.borderRight = '3px solid #D4AF37';
+        
+        // Convert HTML to array including BR tags
+        const htmlParts = originalHTML.split('<br>');
+        let currentText = '';
+        let partIndex = 0;
+        let charIndex = 0;
+        
+        const timer = setInterval(() => {
+            if (partIndex < htmlParts.length) {
+                if (charIndex < htmlParts[partIndex].length) {
+                    currentText += htmlParts[partIndex].charAt(charIndex);
+                    heroTitle.innerHTML = currentText + (partIndex < htmlParts.length - 1 ? '' : '');
+                    charIndex++;
+                } else {
+                    // Move to next part (after <br>)
+                    if (partIndex < htmlParts.length - 1) {
+                        currentText += '<br>';
+                        heroTitle.innerHTML = currentText;
+                    }
+                    partIndex++;
+                    charIndex = 0;
+                }
+            } else {
+                clearInterval(timer);
+                setTimeout(() => {
+                    heroTitle.style.borderRight = 'none';
+                }, 1500);
+            }
+        }, 80);
+    }
+}
+
+// Initialize typing effect
+window.addEventListener('load', () => {
+    setTimeout(typeEffect, 800);
+});
+
+// Enhanced advanced animations
+function addAdvancedAnimations() {
+    // Floating animation for product cards
+    document.querySelectorAll('.product-card').forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.3}s`;
+        card.classList.add('float-animation');
+    });
+
+    // Pulse animation for service icons
+    document.querySelectorAll('.service-icon').forEach((icon, index) => {
+        setTimeout(() => {
+            icon.classList.add('pulse-animation');
+        }, index * 300);
+    });
+
+    // Sacred moment animation
+    const sacredTitle = document.querySelector('.sacred-title');
+    if (sacredTitle) {
+        sacredTitle.classList.add('luxury-accent');
+    }
+}
+
+// Enhanced CSS for additional animations
+const additionalStyles = `
+    .float-animation {
+        animation: premiumFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes premiumFloat {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+
+    .pulse-animation {
+        animation: premiumPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes premiumPulse {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 2px 15px rgba(44, 90, 160, 0.08);
+        }
+        50% {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.1);
+        }
+    }
+
+    .loaded .hero-title {
+        animation: elegantSlideIn 1.2s ease-out;
+    }
+
+    .loaded .hero-subtitle {
+        animation: elegantSlideIn 1.2s ease-out 0.4s both;
+    }
+
+    .loaded .hero-buttons {
+        animation: elegantSlideIn 1.2s ease-out 0.8s both;
+    }
+
+    @keyframes elegantSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+    .modal-header h2 {
+        font-family: 'Playfair Display', serif;
+        color: #1a1a1a;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: #7a7a7a;
+        transition: all 0.3s ease;
+        padding: 0.5rem;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-close:hover {
+        color: #1a1a1a;
+        background: #f8faff;
+        transform: rotate(90deg);
+    }
+
+    .modal-form h3 {
+        font-family: 'Playfair Display', serif;
+        color: #1a1a1a;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .form-note {
+        color: #4a4a4a;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .modal-features h4 {
+        font-family: 'Playfair Display', serif;
+        color: #1a1a1a;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .quick-form input,
+    .quick-form textarea {
+        width: 100%;
+        padding: 15px 20px;
+        margin-bottom: 1.2rem;
+        border: 2px solid #e8edf7;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        background: #f8faff;
+    }
+
+    .quick-form input:focus,
+    .quick-form textarea:focus {
+        outline: none;
+        border-color: #2C5AA0;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+    }
+
+    .testimonial-quote {
+        animation: fadeInScale 1s ease-out;
+    }
+
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+`;
+
+// Add enhanced styles to document
+const styleSheet = document.createElement('style');
+styleSheet.textContent = additionalStyles;
+document.head.appendChild(styleSheet);
+
+// Initialize enhanced animations after load
+window.addEventListener('load', () => {
+    setTimeout(addAdvancedAnimations, 1200);
+});
+
+// Performance optimization: Enhanced debounce scroll events
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Apply enhanced debouncing to scroll events
+const debouncedScrollHandler = debounce(() => {
+    // Add any additional scroll-based functionality here
+}, 16); // ~60fps
+
+window.addEventListener('scroll', debouncedScrollHandler); 

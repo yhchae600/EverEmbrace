@@ -1,0 +1,69 @@
+IMAGE SETUP GUIDE FOR EVEREMBRACE WEBSITE
+=============================================
+
+Based on the images you provided, here's how to set up your website images:
+
+REQUIRED IMAGE FILES:
+--------------------
+
+1. logo.png
+   - Use your EverEmbrace logo (the one with heart symbol and gold text)
+   - Recommended size: 200x80px or similar aspect ratio
+   - Format: PNG with transparent background
+
+2. hero-image.jpg
+   - Use the image of the woman in black holding the blue urn
+   - This will be the main hero section image
+   - Recommended size: 800x600px minimum
+   - Format: JPG, high quality
+
+3. about-image.jpg
+   - Use the image of the elderly woman with the blue urn
+   - This appears in the "About" section
+   - Recommended size: 600x400px minimum
+   - Format: JPG, high quality
+
+4. product-1.jpg
+   - Use the image of the single blue urn on the coffee table
+   - This represents the "Elegant Blue Collection"
+   - Recommended size: 500x400px minimum
+   - Format: JPG, high quality
+
+5. product-2.jpg
+   - Use the image showing the complete set (large urn + 4 small urns + box)
+   - This represents the "Complete Keepsake Set"
+   - Recommended size: 500x400px minimum
+   - Format: JPG, high quality
+
+6. product-3.jpg
+   - Use another angle of the blue urn or the woman holding it
+   - This represents the "Individual Memorial Urn"
+   - Recommended size: 500x400px minimum
+   - Format: JPG, high quality
+
+INSTRUCTIONS:
+-------------
+
+1. Save/rename your images with the exact filenames listed above
+2. Place all images in the same folder as index.html
+3. Ensure images are optimized for web (compress if needed)
+4. Test the website by opening index.html in your browser
+
+IMAGE OPTIMIZATION TIPS:
+------------------------
+- Keep file sizes under 500KB each for fast loading
+- Use JPG for photos, PNG for logos with transparency
+- Maintain good quality but compress for web use
+- Consider using image compression tools like TinyPNG
+
+CURRENT IMAGE MAPPING:
+---------------------
+From your provided images:
+- EverEmbrace logo → logo.png
+- Woman in black with urn → hero-image.jpg
+- Elderly woman with urn → about-image.jpg  
+- Single urn on table → product-1.jpg
+- Complete urn set with box → product-2.jpg
+- Woman holding urn (blonde) → product-3.jpg
+
+Once you place these images, your website will be complete and ready to use! 

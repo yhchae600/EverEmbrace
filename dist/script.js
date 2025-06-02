@@ -612,6 +612,33 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         }
     });
+
+    // Logo click to scroll to top
+    const logo = document.querySelector('.logo-img, .footer-logo-img');
+    const navLogo = document.querySelector('.nav-logo');
+
+    if (navLogo) {
+        navLogo.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Also handle footer logo click
+    if (logo) {
+        document.querySelectorAll('.logo-img, .footer-logo-img').forEach(logoElement => {
+            logoElement.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
 });
 
 // Enhanced notification system

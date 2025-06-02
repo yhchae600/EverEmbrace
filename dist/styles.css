@@ -729,6 +729,22 @@ body {
         display: block !important;
     }
 
+    /* Our Collections와 Connect with Care 섹션만 좌측 정렬 */
+    .footer-section:nth-child(2),
+    .footer-section:nth-child(3) {
+        text-align: left !important;
+    }
+
+    .footer-section:nth-child(2) h4,
+    .footer-section:nth-child(3) h4 {
+        text-align: left !important;
+    }
+
+    .footer-section:nth-child(2) .footer-links,
+    .footer-section:nth-child(3) .footer-contact {
+        text-align: left !important;
+    }
+
     .footer-section h4 {
         font-size: 1.2rem !important;
         width: 100% !important;
@@ -1924,4 +1940,71 @@ img {
 
 .section-subtitle .pc-version, .sacred-quote .pc-version {
     text-align: justify;
+}
+
+/* Product Gallery Styles */
+.gallery-thumbnails {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.gallery-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.gallery-thumbnail:hover {
+    border-color: var(--secondary-color);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.gallery-thumbnail.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+}
+
+.gallery-main-image {
+    transition: all 0.3s ease;
+}
+
+/* Gallery Modal Styles */
+.gallery-modal .modal-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: 20px;
+}
+
+.gallery-modal .gallery-main-image {
+    width: 600px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--shadow-medium);
+}
+
+@media (max-width: 768px) {
+    .gallery-thumbnails {
+        gap: 8px;
+        margin-top: 15px;
+    }
+    
+    .gallery-thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .gallery-modal .gallery-main-image {
+        width: 320px;
+        height: 240px;
+    }
 } 
